@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.bdbank.controller.AdminDashboardController"
+            styleClass="app-bg" prefWidth="1150" prefHeight="720">
+
+    <left>
+        <VBox prefWidth="250" spacing="6" styleClass="sidebar">
+            <padding><Insets top="16" right="10" bottom="16" left="10"/></padding>
+
+            <Label text="BD BANK ADMIN" styleClass="sidebar-brand">
+                <VBox.margin><Insets bottom="16" left="8"/></VBox.margin>
+            </Label>
+
+            <Button fx:id="btnTxn" text="Transaction Management" styleClass="sidebar-btn" onAction="#onTransactions"/>
+            <Button fx:id="btnDeposit" text="Cash Deposit" styleClass="sidebar-btn" onAction="#onDeposit"/>
+            <Button fx:id="btnAccountOpening" text="Account Opening" styleClass="sidebar-btn" onAction="#onAccountOpening"/>
+            <Button fx:id="btnStatement" text="Bank Statement" styleClass="sidebar-btn" onAction="#onStatement"/>
+            <Button fx:id="btnAssets" text="Assets" styleClass="sidebar-btn" onAction="#onAssets"/>
+            <Button fx:id="btnRates" text="Interest Rates" styleClass="sidebar-btn" onAction="#onRates"/>
+            <Button fx:id="btnLoan" text="Loan Management" styleClass="sidebar-btn" onAction="#onLoanManagement"/>
+            <Button fx:id="btnFdr" text="FDR Management" styleClass="sidebar-btn" onAction="#onFdrManagement"/>
+            <Button fx:id="btnDps" text="DPS Management" styleClass="sidebar-btn" onAction="#onDpsManagement"/>
+            <Button fx:id="btnCardCheque" text="Card/Cheque Management" styleClass="sidebar-btn" onAction="#onCardCheque"/>
+            <Button fx:id="btnLocker" text="Locker Management" styleClass="sidebar-btn" onAction="#onLocker"/>
+            <Button fx:id="btnDollar" text="Dollar Endorsement" styleClass="sidebar-btn" onAction="#onDollar"/>
+            <Button fx:id="btnSupport" text="Customer Support" styleClass="sidebar-btn" onAction="#onSupport"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="Logout" styleClass="btn-danger" maxWidth="Infinity" onAction="#onLogout"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="topbar">
+            <Label fx:id="welcomeLabel" styleClass="topbar-welcome"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentHolder">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        </StackPane>
+    </center>
+
+</BorderPane>

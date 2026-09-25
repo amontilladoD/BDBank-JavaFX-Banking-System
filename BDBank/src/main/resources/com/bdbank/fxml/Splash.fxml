@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bdbank.controller.SplashController"
+      alignment="CENTER" spacing="18" styleClass="brand-panel"
+      prefWidth="900" prefHeight="600">
+
+    <Label text="BD BANK" styleClass="splash-title"/>
+    <Label text="Trusted Banking, Simplified" styleClass="splash-tagline"/>
+    <ProgressIndicator maxWidth="40" maxHeight="40"/>
+
+</VBox>

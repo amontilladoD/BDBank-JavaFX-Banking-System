@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.bdbank.controller.UserDashboardController"
+            styleClass="app-bg" prefWidth="1100" prefHeight="700">
+
+    <left>
+        <VBox prefWidth="240" spacing="6" styleClass="sidebar">
+            <padding><Insets top="16" right="10" bottom="16" left="10"/></padding>
+
+            <Label text="BD BANK" styleClass="sidebar-brand">
+                <VBox.margin><Insets bottom="16" left="8"/></VBox.margin>
+            </Label>
+
+            <Button fx:id="btnBalance" text="Balance Inquiry" styleClass="sidebar-btn" onAction="#onBalanceInquiry"/>
+            <Button fx:id="btnStatement" text="Monthly Statement" styleClass="sidebar-btn" onAction="#onStatement"/>
+            <Button fx:id="btnTransfer" text="Balance Transfer" styleClass="sidebar-btn" onAction="#onTransfer"/>
+            <Button fx:id="btnRecharge" text="Mobile Recharge" styleClass="sidebar-btn" onAction="#onRecharge"/>
+            <Button fx:id="btnLoan" text="Loan" styleClass="sidebar-btn" onAction="#onLoan"/>
+            <Button fx:id="btnDps" text="DPS" styleClass="sidebar-btn" onAction="#onDps"/>
+            <Button fx:id="btnFdr" text="FDR" styleClass="sidebar-btn" onAction="#onFdr"/>
+            <Button fx:id="btnCardCheque" text="Card / Cheque Book" styleClass="sidebar-btn" onAction="#onCardCheque"/>
+            <Button fx:id="btnLocker" text="Locker Request" styleClass="sidebar-btn" onAction="#onLocker"/>
+            <Button fx:id="btnDollar" text="Dollar Endorsement" styleClass="sidebar-btn" onAction="#onDollar"/>
+            <Button fx:id="btnToll" text="Toll Service" styleClass="sidebar-btn" onAction="#onToll"/>
+            <Button fx:id="btnUtility" text="Utility Bills" styleClass="sidebar-btn" onAction="#onUtility"/>
+            <Button fx:id="btnSupport" text="Live Support" styleClass="sidebar-btn" onAction="#onLiveSupport"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="Logout" styleClass="btn-danger" maxWidth="Infinity" onAction="#onLogout"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="topbar">
+            <VBox spacing="2">
+                <Label fx:id="welcomeLabel" styleClass="topbar-welcome"/>
+                <Label fx:id="acctInfoLabel" styleClass="muted-label"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <StackPane>
+                <Button fx:id="bellBtn" text="&#128276;" styleClass="bell-btn" onAction="#onBell"/>
+                <Label fx:id="bellBadge" styleClass="badge" StackPane.alignment="TOP_RIGHT"/>
+            </StackPane>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="contentHolder">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        </StackPane>
+    </center>
+
+</BorderPane>

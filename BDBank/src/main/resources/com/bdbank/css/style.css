@@ -1,0 +1,150 @@
+.root {
+    -fx-font-family: "Segoe UI";
+}
+
+.app-bg {
+    -fx-background-color: #e3f2fd;
+}
+
+.brand-panel {
+    -fx-background-color: linear-gradient(to bottom, #0d47a1, #1565c0);
+}
+
+.brand-title {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.brand-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #e3f2fd;
+}
+
+.splash-title {
+    -fx-font-size: 52px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.splash-tagline {
+    -fx-font-size: 16px;
+    -fx-text-fill: #e3f2fd;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(13,71,161,0.15), 10, 0, 0, 2);
+    -fx-padding: 20;
+}
+
+.h1-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0d47a1;
+}
+
+.muted-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #546e7a;
+}
+
+.error-label {
+    -fx-text-fill: #c62828;
+}
+
+.success-label {
+    -fx-text-fill: #2e7d32;
+}
+
+.btn-primary {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-text-fill: #1976d2;
+    -fx-font-weight: bold;
+    -fx-border-color: #1976d2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.btn-danger {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+
+.sidebar {
+    -fx-background-color: #0d47a1;
+}
+
+.sidebar-brand {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e3f2fd;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-max-width: infinity;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: #1565c0;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-max-width: infinity;
+}
+
+.topbar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+    -fx-padding: 12 20 12 20;
+}
+
+.topbar-welcome {
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: #0d47a1;
+}
+
+.bell-btn {
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.badge {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-size: 10px;
+    -fx-padding: 1 6 1 6;
+}
