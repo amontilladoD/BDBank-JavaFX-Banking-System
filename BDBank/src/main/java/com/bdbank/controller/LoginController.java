@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-
 public class LoginController {
     @FXML private RadioButton userRadio;
     @FXML private RadioButton adminRadio;
