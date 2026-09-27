@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.AdminUser;
 import com.bdbank.model.Enums;
 import com.bdbank.util.AlertUtil;
@@ -16,7 +15,6 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class AdminDashboardController {
-
     @FXML private Button btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
             btnCardCheque, btnLocker, btnDollar, btnSupport;
     @FXML private Label welcomeLabel;
@@ -26,10 +24,8 @@ public class AdminDashboardController {
     private void initialize() {
         AdminUser admin = SessionManager.get().getCurrentAdmin();
         welcomeLabel.setText("Welcome, " + admin.getName() + " (" + admin.getAdminId() + ")");
-
         navButtons = List.of(btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
                 btnCardCheque, btnLocker, btnDollar, btnSupport);
-
         onTransactions();
     }
 
