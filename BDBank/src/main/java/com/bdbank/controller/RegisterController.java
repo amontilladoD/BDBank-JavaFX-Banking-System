@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.Account;
 import com.bdbank.model.Enums;
 import com.bdbank.service.AuthService;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class RegisterController {
-
     @FXML private TextField nameField;
     @FXML private TextField nidField;
     @FXML private TextField phoneField;
