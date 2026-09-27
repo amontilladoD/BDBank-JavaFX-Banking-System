@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.Account;
 import com.bdbank.model.Enums;
 import com.bdbank.service.NotificationService;
@@ -15,17 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.util.List;
 
-/**
- * Controller bound to fxml/UserDashboard.fxml. The FXML defines the sidebar/topbar/content
- * shell declaratively; each sidebar button's onAction (also declared in the FXML) calls one
- * of the on... handlers below, which swaps contentHolder's child for the matching feature
- * panel (still built in Java - see the view.user package - since ~13 nearly-identical panels
- * would otherwise mean 13 near-duplicate FXML files with no real design benefit).
- */
-public class UserDashboardController {
+public class UserDashboardController{
 
     @FXML private Button btnBalance, btnStatement, btnTransfer, btnRecharge, btnLoan, btnDps, btnFdr,
             btnCardCheque, btnLocker, btnDollar, btnToll, btnUtility, btnSupport;
@@ -38,7 +29,7 @@ public class UserDashboardController {
     private List<Button> navButtons;
 
     @FXML
-    private void initialize() {
+    private void initialize(){
         acc = SessionManager.get().getCurrentAccount();
         welcomeLabel.setText("Welcome, " + acc.getAccountHolderName());
         acctInfoLabel.setText(acc.getAccountNumber() + " | " + acc.getAccountType().label + " Account");
@@ -49,7 +40,7 @@ public class UserDashboardController {
         refreshBadge();
         NotificationService.get().liveList().addListener((ListChangeListener<Object>) c -> refreshBadge());
 
-        onBalanceInquiry(); // default view
+        onBalanceInquiry();
     }
 
     private void refreshBadge() {
@@ -92,7 +83,6 @@ public class UserDashboardController {
         }
     }
 
-    /** Loads UserDashboard.fxml and shows it. Called right after a successful customer login. */
     public static void show(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(UserDashboardController.class.getResource("/com/bdbank/fxml/UserDashboard.fxml"));
