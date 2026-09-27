@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.Account;
 import com.bdbank.model.AdminUser;
 import com.bdbank.service.AuthService;
@@ -13,12 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-/**
- * Controller bound to fxml/Login.fxml. Every field below is wired to the matching fx:id
- * in the FXML file; JavaFX injects them automatically when the FXML is loaded.
- */
-public class LoginController {
 
+public class LoginController {
     @FXML private RadioButton userRadio;
     @FXML private RadioButton adminRadio;
     @FXML private Label idLabel;
@@ -27,7 +22,6 @@ public class LoginController {
     @FXML private Button loginBtn;
     @FXML private ProgressIndicator spinner;
     @FXML private Label statusLabel;
-
     @FXML
     private void initialize() {
         adminRadio.selectedProperty().addListener((obs, was, isNow) -> {
@@ -51,8 +45,6 @@ public class LoginController {
         boolean adminMode = adminRadio.isSelected();
         Stage stage = com.bdbank.App.primaryStage;
 
-        // Authentication runs on a background thread so the UI never freezes,
-        // then the result is marshalled back to the JavaFX thread with Platform.runLater.
         ExecutorServiceManager.get().scheduler().submit(() -> {
             try {
                 if (adminMode) {
@@ -83,7 +75,6 @@ public class LoginController {
         RegisterController.showRegisterScreen(com.bdbank.App.primaryStage);
     }
 
-    /** Loads Login.fxml and shows it on the given stage. Called from Splash, Register and Logout. */
     public static void showLoginScreen(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/com/bdbank/fxml/Login.fxml"));
