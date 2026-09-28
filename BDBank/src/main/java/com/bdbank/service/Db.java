@@ -59,8 +59,7 @@ public class Db {
                 "id TEXT PRIMARY KEY, target_account TEXT NOT NULL, message TEXT NOT NULL, " +
                 "timestamp TEXT NOT NULL, is_read INTEGER NOT NULL DEFAULT 0)",
 
-            // fields_json holds each request type's own flexible key/value data (loan terms,
-            // card type, locker size, etc.) - a natural fit for JSON instead of dozens of columns.
+
             "CREATE TABLE IF NOT EXISTS requests (" +
                 "id TEXT PRIMARY KEY, account_number TEXT NOT NULL, request_type TEXT NOT NULL, " +
                 "status TEXT NOT NULL, submitted_at TEXT NOT NULL, processed_at TEXT, remarks TEXT, " +
