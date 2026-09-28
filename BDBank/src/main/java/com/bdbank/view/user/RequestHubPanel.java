@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-/** Drives DPS, FDR and Locker requests generically: Application tab, Rates tab, My Requests tab. */
 public class RequestHubPanel {
     private final Account acc;
     private final Enums.RequestType type;

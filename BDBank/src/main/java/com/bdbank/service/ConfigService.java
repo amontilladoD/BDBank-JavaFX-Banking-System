@@ -14,13 +14,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Owns the bank-wide config (single row in SQLite's `bank_config` table, id fixed at 1) AND the
- * background thread that refreshes the USD rate periodically - a clean, visible demonstration of
- * a ScheduledExecutorService running independently of the UI thread. The rate itself now comes
- * from ExchangeRateApiClient, which calls a real JSON API (with an offline fallback), tying this
- * feature directly to the JSON-parsing / API-handling lab topic.
- */
 public class ConfigService {
     private static final ConfigService INSTANCE = new ConfigService();
     public static ConfigService get() { return INSTANCE; }
@@ -59,8 +52,6 @@ public class ConfigService {
         c.lockerAvailableMedium = rs.getInt("locker_medium_avail");
         c.lockerAvailableLarge = rs.getInt("locker_large_avail");
 
-        // Interest rates were stored as JSON ({"NORMAL":2.0,"STUDENT":4.0,...}); parse them back
-        // into the per-account-type map with Jackson.
         try {
             JsonNode json = JsonUtil.MAPPER.readTree(rs.getString("interest_rates_json"));
             for (Enums.AccountType type : Enums.AccountType.values()) {
@@ -93,13 +84,8 @@ public class ConfigService {
     public BankConfig config() { return config; }
     public SimpleObjectProperty<BankConfig> configProperty() { return configProperty; }
 
-    /** Writes every field of the (possibly just-edited) config back to its single SQLite row. */
     public void save() { insertConfig(config); }
 
-    /** Starts the recurring dollar-rate refresh job exactly once for the whole app lifetime.
-     *  Each tick calls ExchangeRateApiClient (a real HTTPS + JSON-parsing round trip) on this
-     *  background scheduler thread - never on the JavaFX Application Thread - then persists and
-     *  notifies. */
     public synchronized void startDollarRateTicker() {
         if (tickerStarted) return;
         tickerStarted = true;

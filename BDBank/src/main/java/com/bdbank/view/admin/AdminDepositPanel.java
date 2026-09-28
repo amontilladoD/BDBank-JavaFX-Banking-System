@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-/** Simulates a teller taking physical cash from a customer and depositing it into their account. */
 public class AdminDepositPanel {
     public VBox build() {
         VBox root = new VBox(16);

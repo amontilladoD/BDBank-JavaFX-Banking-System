@@ -10,13 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Accounts and admins live in the SQLite `accounts` / `admins` tables (see Db.java for schema).
- * Just like before, everything is also kept in an in-memory CopyOnWriteArrayList cache so the
- * rest of the app can keep holding a live, mutable Account reference (e.g. the logged-in user's
- * session account) that updates instantly across every screen - persistAccounts() is what pushes
- * that in-memory state back down into SQLite.
- */
 public class AuthService {
     private static final AuthService INSTANCE = new AuthService();
     public static AuthService get() { return INSTANCE; }
@@ -72,7 +65,6 @@ public class AuthService {
         return admin;
     }
 
-    /** Self-registration by a customer results in a PENDING account until admin approves account opening. */
     public synchronized Account registerPending(String name, String nid, String phone, String email,
                                                  String password, Enums.AccountType type) throws BankException {
         if (Util.isBlank(name) || Util.isBlank(nid)) throw new BankException("Name and NID are required.");
@@ -91,7 +83,6 @@ public class AuthService {
 
     public List<Account> allAccounts() { return accounts; }
 
-    /** Upserts every in-memory account into SQLite. Called after any balance/status change. */
     public synchronized void persistAccounts() {
         for (Account a : accounts) {
             Db.get().update("INSERT OR REPLACE INTO accounts " +

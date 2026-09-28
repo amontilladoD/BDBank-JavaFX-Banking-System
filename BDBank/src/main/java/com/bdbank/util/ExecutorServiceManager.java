@@ -5,13 +5,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Central place that owns every background thread the app uses:
- *  - recurring jobs (dollar-rate ticker, notification pump)
- *  - one-off async jobs (login check, transfer processing, chat auto-reply)
- * Using a single shared, named, daemon thread pool instead of "new Thread()" everywhere
- * is the correct multithreading practice: bounded resources + graceful JVM shutdown.
- */
+
 public class ExecutorServiceManager {
     private static final ExecutorServiceManager INSTANCE = new ExecutorServiceManager();
     public static ExecutorServiceManager get() { return INSTANCE; }

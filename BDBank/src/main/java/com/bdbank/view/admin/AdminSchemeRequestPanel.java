@@ -17,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-/** One generic screen drives both DPS Management and FDR Management (Requests review + Add/Remove Scheme + Update %). */
 public class AdminSchemeRequestPanel {
     private final Enums.RequestType type;
     public AdminSchemeRequestPanel(Enums.RequestType type) { this.type = type; }

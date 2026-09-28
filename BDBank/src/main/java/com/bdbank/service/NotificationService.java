@@ -12,14 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Notifications are produced by many different threads at once (a transfer just completed on a
- * background Task, the dollar-rate ticker just fired on the scheduler, an admin just approved a
- * loan). This service is the single, thread-safe funnel: any thread can call push(), and the
- * JavaFX ObservableList (only ever mutated on the FX thread via Platform.runLater) is what the
- * bell-icon UI binds to, so the badge count updates live without the UI thread ever blocking.
- * Backed by SQLite's `notifications` table.
- */
 public class NotificationService {
     private static final NotificationService INSTANCE = new NotificationService();
     public static NotificationService get() { return INSTANCE; }
@@ -40,7 +32,6 @@ public class NotificationService {
         return n;
     }
 
-    /** Safe to call from ANY thread (UI thread or a background worker thread). */
     public void push(String targetAccountNumberOrAll, String message) {
         Notification n = new Notification(Util.nextId("NTF"), targetAccountNumberOrAll, message);
         store.add(0, n);

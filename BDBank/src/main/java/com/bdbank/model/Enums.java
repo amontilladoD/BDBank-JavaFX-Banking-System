@@ -1,9 +1,5 @@
 package com.bdbank.model;
 
-/**
- * Container for every enum used across the system.
- * Nested so the whole vocabulary of the domain lives in one readable place.
- */
 public class Enums {
 
     /** The 5 account types the bank offers, each with its own annual interest rate (admin adjustable). */
@@ -32,7 +28,6 @@ public class Enums {
         CARD_FEE, CHEQUE_FEE, LOCKER_FEE, DOLLAR_ENDORSEMENT, INTEREST_CREDIT, DEPOSIT, OTHER
     }
 
-    /** Every request-driven service in the system funnels through one of these types. */
     public enum RequestType { LOAN, DPS, FDR, CARD, CHEQUE, LOCKER, DOLLAR_ENDORSEMENT }
 
     public enum RequestStatus { PENDING, APPROVED, REJECTED }

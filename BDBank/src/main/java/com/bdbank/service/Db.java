@@ -8,19 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * The whole system's SQLite database layer. Design choices, explained:
- *
- *  - ONE shared JDBC Connection for the entire app, guarded by a single ReentrantLock.
- *    SQLite only truly supports one writer at a time anyway; sharing one connection avoids the
- *    classic beginner "database is locked" exception you get from opening lots of separate
- *    connections to the same file concurrently, and it plugs neatly into this project's existing
- *    multithreading model (several background threads + the JavaFX thread all touch data at
- *    once - the lock here plays the same role FileManager's per-key locks used to play).
- *  - WAL (write-ahead log) journal mode is enabled for better read/write concurrency.
- *  - A tiny RowMapper<T> functional interface + query()/update() helpers keep every service's
- *    SQL code short, instead of hand-rolling try/catch/ResultSet boilerplate everywhere.
- */
 public class Db {
     private static final Db INSTANCE = new Db();
     public static Db get() { return INSTANCE; }
@@ -91,9 +78,6 @@ public class Db {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, annual_rate REAL NOT NULL, " +
                 "tenure_months INTEGER NOT NULL, min_amount REAL NOT NULL)",
 
-            // Single-row table (id fixed at 1) holding bank-wide settings. interest_rates_json
-            // holds the per-account-type rate map - again, a flexible map fits JSON better than
-            // five separate columns that would need a migration every time a new account type appears.
             "CREATE TABLE IF NOT EXISTS bank_config (" +
                 "id INTEGER PRIMARY KEY CHECK (id = 1), total_bdt REAL NOT NULL, total_forex_usd REAL NOT NULL, " +
                 "total_gold_bdt REAL NOT NULL, max_loan_capacity REAL NOT NULL, total_loan_disbursed REAL NOT NULL, " +
@@ -111,7 +95,6 @@ public class Db {
         }
     }
 
-    /** SELECT helper: runs the query and maps each row with the given RowMapper. */
     public <T> List<T> query(String sql, RowMapper<T> mapper, Object... params) {
         lock.lock();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -129,7 +112,6 @@ public class Db {
         }
     }
 
-    /** INSERT/UPDATE/DELETE helper. Returns affected row count (-1 on failure). */
     public int update(String sql, Object... params) {
         lock.lock();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -143,7 +125,6 @@ public class Db {
         }
     }
 
-    /** INSERT helper for tables with an AUTOINCREMENT primary key; returns the generated id, or -1 on failure. */
     public int insertAndGetId(String sql, Object... params) {
         lock.lock();
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
