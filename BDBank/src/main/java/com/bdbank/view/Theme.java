@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-/** Central place for the blue & white visual identity so every screen looks consistent. */
 public class Theme {
     public static final String NAVY = "#0d47a1";
     public static final String BLUE = "#1565c0";

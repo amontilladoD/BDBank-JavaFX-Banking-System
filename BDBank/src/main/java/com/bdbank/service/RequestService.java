@@ -15,18 +15,6 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-/**
- * Handles the full lifecycle of every "apply then admin approves/rejects" workflow.
- * One generic pipeline drives Loan / DPS / FDR / Card / Cheque / Locker / Dollar-Endorsement -
- * this is the polymorphism payoff of the ServiceRequest hierarchy: business effects on approval
- * are the only place that differs per type (see approve()).
- *
- * Persistence: the `requests` SQLite table has one column per shared field (id, account_number,
- * request_type, status, submitted_at, processed_at, remarks) plus a single fields_json TEXT
- * column holding each request type's own flexible key/value data (a loan's principal/tenure/rate,
- * a card's type/fee, a locker's size/fee, etc). That flexible part is a natural fit for JSON -
- * Jackson's ObjectMapper/JsonNode serializes and parses it on the way to and from the database.
- */
 public class RequestService {
     private static final RequestService INSTANCE = new RequestService();
     public static RequestService get() { return INSTANCE; }
@@ -37,8 +25,6 @@ public class RequestService {
         requests = new CopyOnWriteArrayList<>(Db.get().query("SELECT * FROM requests", this::mapRequest));
     }
 
-    /** Rebuilds the correct concrete ServiceRequest subtype from one database row, including
-     *  parsing fields_json back into the request's key/value map with Jackson. */
     private ServiceRequest mapRequest(ResultSet rs) throws SQLException {
         String id = rs.getString("id");
         String accountNumber = rs.getString("account_number");
@@ -70,7 +56,6 @@ public class RequestService {
         return req;
     }
 
-    /** Serializes a request's flexible field map to a JSON string with Jackson. */
     private String fieldsToJson(ServiceRequest req) {
         ObjectNode json = JsonUtil.MAPPER.createObjectNode();
         for (Map.Entry<String, String> e : req.getFields().entrySet()) json.put(e.getKey(), e.getValue());
@@ -102,7 +87,6 @@ public class RequestService {
                 .sorted((a, b) -> b.getSubmittedAt().compareTo(a.getSubmittedAt())).collect(Collectors.toList());
     }
 
-    /** Approves a request AND applies the correct business effect for its concrete type. */
     public synchronized void approve(ServiceRequest req, String remarks) throws BankException {
         req.setStatus(Enums.RequestStatus.APPROVED);
         req.setRemarks(remarks);
@@ -158,7 +142,6 @@ public class RequestService {
                 (remarks == null || remarks.isBlank() ? "" : "Reason: " + remarks));
     }
 
-    /** Updates just the mutable columns (status/processed_at/remarks) for one request row. */
     private void persistStatus(ServiceRequest req) {
         Db.get().update("UPDATE requests SET status = ?, processed_at = ?, remarks = ? WHERE id = ?",
                 req.getStatus().name(),

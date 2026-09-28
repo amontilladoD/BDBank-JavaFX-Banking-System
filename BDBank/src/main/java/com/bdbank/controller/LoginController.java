@@ -13,10 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-/**
- * Controller bound to fxml/Login.fxml. Every field below is wired to the matching fx:id
- * in the FXML file; JavaFX injects them automatically when the FXML is loaded.
- */
 public class LoginController {
 
     @FXML private RadioButton userRadio;
@@ -51,8 +47,6 @@ public class LoginController {
         boolean adminMode = adminRadio.isSelected();
         Stage stage = com.bdbank.App.primaryStage;
 
-        // Authentication runs on a background thread so the UI never freezes,
-        // then the result is marshalled back to the JavaFX thread with Platform.runLater.
         ExecutorServiceManager.get().scheduler().submit(() -> {
             try {
                 if (adminMode) {

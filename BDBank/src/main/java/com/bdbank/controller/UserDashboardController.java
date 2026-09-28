@@ -18,13 +18,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-/**
- * Controller bound to fxml/UserDashboard.fxml. The FXML defines the sidebar/topbar/content
- * shell declaratively; each sidebar button's onAction (also declared in the FXML) calls one
- * of the on... handlers below, which swaps contentHolder's child for the matching feature
- * panel (still built in Java - see the view.user package - since ~13 nearly-identical panels
- * would otherwise mean 13 near-duplicate FXML files with no real design benefit).
- */
 public class UserDashboardController {
 
     @FXML private Button btnBalance, btnStatement, btnTransfer, btnRecharge, btnLoan, btnDps, btnFdr,
@@ -92,7 +85,6 @@ public class UserDashboardController {
         }
     }
 
-    /** Loads UserDashboard.fxml and shows it. Called right after a successful customer login. */
     public static void show(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(UserDashboardController.class.getResource("/com/bdbank/fxml/UserDashboard.fxml"));

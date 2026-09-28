@@ -5,13 +5,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Base type for every "apply -> admin reviews -> approve/reject" workflow in the bank:
- * Loan, DPS, FDR, Card, Cheque book, Locker, Dollar endorsement.
- * Concrete detail fields for each request type are kept generically in {@link #fields}
- * (a simple key/value map) so ONE admin review screen and ONE user "apply" screen can drive
- * all seven request types polymorphically instead of duplicating seven near-identical UIs.
- */
 public abstract class ServiceRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -42,8 +35,6 @@ public abstract class ServiceRequest implements Serializable {
     public String getRemarks() { return remarks; }
     public void setRemarks(String r) { this.remarks = r; }
 
-    /** Used only when rebuilding this object from a database row (see RequestService), so the
-     *  original submission/processing history is preserved instead of reset by the constructor. */
     public void hydrate(LocalDateTime submittedAt, LocalDateTime processedAt, Enums.RequestStatus status, String remarks) {
         this.submittedAt = submittedAt;
         this.processedAt = processedAt;
@@ -57,6 +48,5 @@ public abstract class ServiceRequest implements Serializable {
     public int getInt(String key) { try { return Integer.parseInt(get(key)); } catch (Exception e) { return 0; } }
     public Map<String, String> getFields() { return fields; }
 
-    /** One-line human summary used in list views. */
     public abstract String summary();
 }

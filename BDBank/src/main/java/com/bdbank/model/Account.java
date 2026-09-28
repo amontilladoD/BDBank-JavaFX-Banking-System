@@ -4,11 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * Represents a bank customer's account. This is a plain data model (part of the "M" in MVC).
- * balance is stored behind an AtomicReference<Double> so concurrent threads (a transfer thread and
- * an interest-crediting thread, for example) can never race on a read-modify-write of the balance.
- */
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -37,12 +32,10 @@ public class Account implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
-    /** Thread-safe credit. */
     public void credit(double amount) {
         balance.updateAndGet(b -> round2(b + amount));
     }
 
-    /** Thread-safe debit; throws if funds are insufficient (caller should hold no assumptions about prior balance). */
     public synchronized void debit(double amount) throws com.bdbank.exception.BankException {
         double current = balance.get();
         if (current < amount) {
@@ -69,8 +62,6 @@ public class Account implements Serializable {
     public void setStatus(Enums.AccountStatus s) { this.status = s; }
     public LocalDateTime getCreatedAt() { return createdAt; }
 
-    /** Used only when rebuilding this object from a database row, so the original creation
-     *  timestamp is preserved instead of being reset to "now" by the constructor. */
     public void hydrateCreatedAt(LocalDateTime original) { this.createdAt = original; }
 
     @Override

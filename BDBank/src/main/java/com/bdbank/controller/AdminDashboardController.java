@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-/** Controller bound to fxml/AdminDashboard.fxml - same shell pattern as the user dashboard. */
 public class AdminDashboardController {
 
     @FXML private Button btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
@@ -34,7 +33,7 @@ public class AdminDashboardController {
         navButtons = List.of(btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
                 btnCardCheque, btnLocker, btnDollar, btnSupport);
 
-        onTransactions(); // default view
+        onTransactions();
     }
 
     private void setActive(Button active) {
@@ -65,7 +64,6 @@ public class AdminDashboardController {
         }
     }
 
-    /** Loads AdminDashboard.fxml and shows it. Called right after a successful admin login. */
     public static void show(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(AdminDashboardController.class.getResource("/com/bdbank/fxml/AdminDashboard.fxml"));

@@ -3,7 +3,6 @@ package com.bdbank.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/** Every money movement in the system produces one immutable Transaction record, automatically timestamped. */
 public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -40,6 +39,5 @@ public class Transaction implements Serializable {
     public String getDescription() { return description; }
     public LocalDateTime getTimestamp() { return timestamp; }
 
-    /** Used only when rebuilding this object from a database row. */
     public void hydrateTimestamp(LocalDateTime original) { this.timestamp = original; }
 }

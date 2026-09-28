@@ -1,6 +1,5 @@
 package com.bdbank.model;
 
-/** Concrete, tiny subclasses of {@link ServiceRequest} - each just fixes the requestType and a summary line. */
 public class RequestTypes {
 
     public static class LoanApplication extends ServiceRequest {

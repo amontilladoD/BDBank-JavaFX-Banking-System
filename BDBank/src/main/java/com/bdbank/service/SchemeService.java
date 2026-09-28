@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/** Loan/DPS/FDR product schemes, each backed by its own SQLite table with a real AUTOINCREMENT
- *  primary key (id), so add/remove map directly onto INSERT/DELETE instead of rewriting a whole file. */
 public class SchemeService {
     private static final SchemeService INSTANCE = new SchemeService();
     public static SchemeService get() { return INSTANCE; }

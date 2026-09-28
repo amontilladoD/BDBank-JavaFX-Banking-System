@@ -23,6 +23,5 @@ public class ChatMessage implements Serializable {
     public String getText() { return text; }
     public LocalDateTime getTimestamp() { return timestamp; }
 
-    /** Used only when rebuilding this object from a database row. */
     public void hydrateTimestamp(LocalDateTime original) { this.timestamp = original; }
 }

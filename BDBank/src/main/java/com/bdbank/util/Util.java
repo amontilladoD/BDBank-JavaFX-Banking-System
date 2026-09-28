@@ -12,7 +12,7 @@ public class Util {
 
     private static final AtomicLong SEQ = new AtomicLong(System.currentTimeMillis() % 100000);
 
-    /** SHA-256 hash for password storage - never store plain text passwords. */
+    //sha-256
     public static String hash(String plainText) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
