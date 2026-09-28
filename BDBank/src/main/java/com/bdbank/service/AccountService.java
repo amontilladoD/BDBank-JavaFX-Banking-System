@@ -12,8 +12,6 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-/** Transactions are stored in SQLite's `transactions` table and are append-only: once written,
- *  a transaction is never edited, so persistTxn() below is a single INSERT rather than a rewrite. */
 public class AccountService {
     private static final AccountService INSTANCE = new AccountService();
     public static AccountService get() { return INSTANCE; }
@@ -35,7 +33,6 @@ public class AccountService {
 
     public enum TransferChannel { NPSB, BEFTN, CARD, BKASH, NAGAD, ROCKET }
 
-    /** Fee schedule exactly as specified by the bank's rules. */
     public double calculateTransferCharge(TransferChannel channel, double amount) {
         switch (channel) {
             case NPSB:
@@ -79,10 +76,6 @@ public class AccountService {
         NotificationService.get().push(from.getAccountNumber(),
                 "Tk " + amount + " sent via " + channel + " (charge Tk " + charge + "). New balance: Tk " + from.getBalance());
 
-        // This is the actual "deposit" step: if the recipient account number belongs to another
-        // BD Bank customer, the money is credited straight into their account here - the same way
-        // a real intra-bank transfer would. If the number doesn't match anyone in this bank, it's
-        // treated as going out to an external bank/card/MFS network, so there's nothing local to credit.
         Optional<Account> recipient = AuthService.get().allAccounts().stream()
                 .filter(a -> a.getAccountNumber().equalsIgnoreCase(toAccountOrNumber == null ? "" : toAccountOrNumber.trim()))
                 .findFirst();
@@ -164,7 +157,6 @@ public class AccountService {
                 .sorted((a, b) -> b.getTimestamp().compareTo(a.getTimestamp())).collect(Collectors.toList());
     }
 
-    /** Inserts a single transaction row into SQLite - called right after each transactions.add(...). */
     private void persistTxn(Transaction t) {
         Db.get().update("INSERT OR REPLACE INTO transactions " +
                 "(id, account_number, type, category, amount, charge, balance_after, description, timestamp) " +

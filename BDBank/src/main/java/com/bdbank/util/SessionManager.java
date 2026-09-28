@@ -4,7 +4,6 @@ import com.bdbank.model.Account;
 import com.bdbank.model.AdminUser;
 import com.bdbank.model.Enums;
 
-/** Simple singleton holding who is currently logged in for this JavaFX session. */
 public class SessionManager {
     private static final SessionManager INSTANCE = new SessionManager();
     public static SessionManager get() { return INSTANCE; }

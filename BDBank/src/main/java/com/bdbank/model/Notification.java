@@ -7,7 +7,7 @@ public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String id;
-    /** "ALL" is a broadcast notification (e.g. dollar-rate change), otherwise a specific account number. */
+
     private final String targetAccountNumber;
     private final String message;
     private LocalDateTime timestamp;
@@ -26,7 +26,6 @@ public class Notification implements Serializable {
     public String getMessage() { return message; }
     public LocalDateTime getTimestamp() { return timestamp; }
 
-    /** Used only when rebuilding this object from a database row. */
     public void hydrateTimestamp(LocalDateTime original) { this.timestamp = original; }
     public boolean isRead() { return read; }
     public void setRead(boolean r) { this.read = r; }

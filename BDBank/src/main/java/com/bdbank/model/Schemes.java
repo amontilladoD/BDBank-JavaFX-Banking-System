@@ -2,12 +2,10 @@ package com.bdbank.model;
 
 import java.io.Serializable;
 
-/** Admin-manageable product schemes for Loan, DPS and FDR. Grouped in one file since each is a small data holder. */
 public class Schemes {
 
     public static class LoanScheme implements Serializable {
         private static final long serialVersionUID = 1L;
-        /** Database row id; -1 until this scheme has actually been saved via SchemeService. */
         public int id = -1;
         public String name;
         public double annualRatePercent;

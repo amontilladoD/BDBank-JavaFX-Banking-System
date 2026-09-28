@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
-/** Live support chat, backed by SQLite's `chat_messages` table (append-only, like transactions). */
 public class ChatService {
     private static final ChatService INSTANCE = new ChatService();
     public static ChatService get() { return INSTANCE; }

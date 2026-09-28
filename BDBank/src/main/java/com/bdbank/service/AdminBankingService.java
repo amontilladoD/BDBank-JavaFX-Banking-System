@@ -7,23 +7,12 @@ import com.bdbank.util.Util;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Admin-only banking operations: opening accounts with per-account-type eligibility criteria,
- * and the interest-accrual background job (a second, independent scheduled thread from the
- * dollar-rate ticker - together they demonstrate multiple concurrent background workers safely
- * sharing the same SQLite-backed data store through Db's shared connection lock).
- */
 public class AdminBankingService {
     private static final AdminBankingService INSTANCE = new AdminBankingService();
     public static AdminBankingService get() { return INSTANCE; }
 
     private volatile boolean interestJobStarted = false;
 
-    /**
-     * Opens (activates) an account directly from the admin panel. Applies the criteria the
-     * assignment calls for: Student needs a student ID, Woman account requires gender flag,
-     * Worker needs employer info, Savings+ requires a minimum opening deposit.
-     */
     public synchronized Account openAccount(Enums.AccountType type, String name, String nid, String phone,
                                              String email, String password, double openingDeposit,
                                              String studentId, String gender, String employer) throws BankException {
@@ -46,9 +35,7 @@ public class AdminBankingService {
         }
 
         String accNo = Util.nextAccountNumber();
-        // Open at zero, then apply the opening deposit as a real, correctly-logged transaction
-        // (previously the constructor pre-loaded the balance AND a separate Tk-0 "log-only" credit
-        // was fired, so the transaction history showed a Tk 0 deposit instead of the real amount).
+
         Account acc = new Account(accNo, name, nid, phone, email, Util.hash(password), type, 0.0, Enums.AccountStatus.ACTIVE);
         AuthService.get().addAccount(acc);
         if (openingDeposit > 0) {
@@ -65,7 +52,6 @@ public class AdminBankingService {
         NotificationService.get().push(acc.getAccountNumber(), "Your account has been approved and activated. Welcome to BD Bank!");
     }
 
-    /** Over-the-counter cash deposit: a teller/admin puts physical cash into a customer's account. */
     public synchronized void depositCash(Account acc, double amount) throws BankException {
         if (amount <= 0) throw new BankException("Deposit amount must be greater than zero.");
         if (acc.getStatus() != Enums.AccountStatus.ACTIVE) throw new BankException("Only active accounts can receive deposits.");
@@ -79,7 +65,6 @@ public class AdminBankingService {
         AuthService.get().persistAccounts();
     }
 
-    /** Starts the once-per-app annual-interest-credit demo job (accelerated interval for demonstration). */
     public synchronized void startInterestAccrualJob() {
         if (interestJobStarted) return;
         interestJobStarted = true;
