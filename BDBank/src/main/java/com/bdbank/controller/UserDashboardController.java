@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.Account;
 import com.bdbank.model.Enums;
 import com.bdbank.service.NotificationService;
@@ -15,10 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.util.List;
 
-public class UserDashboardController {
+public class UserDashboardController{
 
     @FXML private Button btnBalance, btnStatement, btnTransfer, btnRecharge, btnLoan, btnDps, btnFdr,
             btnCardCheque, btnLocker, btnDollar, btnToll, btnUtility, btnSupport;
@@ -31,7 +29,7 @@ public class UserDashboardController {
     private List<Button> navButtons;
 
     @FXML
-    private void initialize() {
+    private void initialize(){
         acc = SessionManager.get().getCurrentAccount();
         welcomeLabel.setText("Welcome, " + acc.getAccountHolderName());
         acctInfoLabel.setText(acc.getAccountNumber() + " | " + acc.getAccountType().label + " Account");
@@ -42,7 +40,7 @@ public class UserDashboardController {
         refreshBadge();
         NotificationService.get().liveList().addListener((ListChangeListener<Object>) c -> refreshBadge());
 
-        onBalanceInquiry(); // default view
+        onBalanceInquiry();
     }
 
     private void refreshBadge() {

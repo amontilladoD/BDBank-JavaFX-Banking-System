@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.AdminUser;
 import com.bdbank.model.Enums;
 import com.bdbank.util.AlertUtil;
@@ -13,26 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import java.util.List;
 
 public class AdminDashboardController {
-
     @FXML private Button btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
             btnCardCheque, btnLocker, btnDollar, btnSupport;
     @FXML private Label welcomeLabel;
     @FXML private StackPane contentHolder;
-
     private List<Button> navButtons;
-
     @FXML
     private void initialize() {
         AdminUser admin = SessionManager.get().getCurrentAdmin();
         welcomeLabel.setText("Welcome, " + admin.getName() + " (" + admin.getAdminId() + ")");
-
         navButtons = List.of(btnTxn, btnDeposit, btnAccountOpening, btnStatement, btnAssets, btnRates, btnLoan, btnFdr, btnDps,
                 btnCardCheque, btnLocker, btnDollar, btnSupport);
-
         onTransactions();
     }
 
@@ -55,7 +48,6 @@ public class AdminDashboardController {
     @FXML private void onLocker()           { setActive(btnLocker); setContent(new AdminLockerPanel().build()); }
     @FXML private void onDollar()           { setActive(btnDollar); setContent(new AdminDollarPanel().build()); }
     @FXML private void onSupport()          { setActive(btnSupport); setContent(new AdminSupportPanel().build()); }
-
     @FXML
     private void onLogout() {
         if (AlertUtil.confirm("Logout", "Are you sure you want to log out?")) {
@@ -63,7 +55,6 @@ public class AdminDashboardController {
             LoginController.showLoginScreen(com.bdbank.App.primaryStage);
         }
     }
-
     public static void show(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(AdminDashboardController.class.getResource("/com/bdbank/fxml/AdminDashboard.fxml"));

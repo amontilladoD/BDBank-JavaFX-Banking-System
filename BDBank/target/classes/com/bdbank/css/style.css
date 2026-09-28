@@ -123,6 +123,7 @@
     -fx-max-width: infinity;
 }
 
+
 .topbar {
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);

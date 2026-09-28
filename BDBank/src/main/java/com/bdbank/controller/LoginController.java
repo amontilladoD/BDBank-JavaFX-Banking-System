@@ -1,5 +1,4 @@
 package com.bdbank.controller;
-
 import com.bdbank.model.Account;
 import com.bdbank.model.AdminUser;
 import com.bdbank.service.AuthService;
@@ -14,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class LoginController {
-
     @FXML private RadioButton userRadio;
     @FXML private RadioButton adminRadio;
     @FXML private Label idLabel;
@@ -23,7 +21,6 @@ public class LoginController {
     @FXML private Button loginBtn;
     @FXML private ProgressIndicator spinner;
     @FXML private Label statusLabel;
-
     @FXML
     private void initialize() {
         adminRadio.selectedProperty().addListener((obs, was, isNow) -> {
@@ -77,7 +74,6 @@ public class LoginController {
         RegisterController.showRegisterScreen(com.bdbank.App.primaryStage);
     }
 
-    /** Loads Login.fxml and shows it on the given stage. Called from Splash, Register and Logout. */
     public static void showLoginScreen(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/com/bdbank/fxml/Login.fxml"));
